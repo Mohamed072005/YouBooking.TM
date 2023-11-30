@@ -94,7 +94,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                             </td>
                             <td>
 
-                                <a type="button" class="btn btn-danger">Supreme</a>
+                                <a href="../logique/deletehotel.php?id=<?= $row['hotel_id']?> & id_location=<?= $row['location_id']?>" type="button" class="btn btn-danger">Supreme</a>
                                
                                 <a type="button" class="btn btn-warning" >update</a>
 
