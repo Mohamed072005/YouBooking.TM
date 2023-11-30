@@ -1,28 +1,32 @@
-<?php
-include '../cnxDB.php';
+<?php 
+    include '../cnxDB.php';
 
-if(isset($_POST['inserthotel'])){
-    $hotelName = $_POST["name"];
-    $contactNumber = $_POST["contactNumber"];
-    $amenities = $_POST["amenities"];
-    $pays = $_POST["pays"];
-    $ville = $_POST["ville"];
-  
-    $insertlocal = "INSERT INTO localisation (pays, ville) VALUES ('$pays', '$ville')";
-    $result = mysqli_query($conn, $insertlocal);
 
-    if ($result) {
-        $locationId = mysqli_insert_id($conn);
-    $id=$_SESSION['user_id'];
-        $inserthotel = "INSERT INTO hotel (`hotel_id`, `location_id`, `name`, `contact_number`, `amenities`, `user_id`) VALUES ( null , $locationId, '$hotelName', '$contactNumber', '$amenities','$id')";
-        $resultHotel = mysqli_query($conn, $inserthotel);
+    if(isset($_POST['inserthotel'])){
+        $hotelname = $_POST['name'];
+        $contactNumber = $_POST['contactNumber'];
+        $amenities = $_POST['amenities'];
+        $pay = $_POST['pays'];
+        $ville = $_POST['ville'];
+        $userId = $_SESSION['user_id'];
+        $insert = "INSERT INTO localisation (pays, ville) VALUE ('$pay', '$ville')";
+        $sql = mysqli_query($conn, $insert);
+        if($sql){
+            $locationId = mysqli_insert_id($conn);
+            
+            $sqlHotel = mysqli_query($conn, "INSERT INTO hotel (`location_id`, `name`, `contact_number`, `amenities`, `id_user`)
+            VALUES ('$locationId', '$hotelname', '$contactNumber', '$amenities', '$userId')");
 
-        if ($resultHotel) {
-           header('location:../dashboard/hotel.php');
+            if ($sqlHotel) {
+                header('location:../dashboard/hotel.php');
+            }
+        } else {
+            
+            echo "Error inserting into hotel table: " . mysqli_error($conn);
+            echo "<h1>or</h1>";
+            echo "Error inserting into localisation table: " . mysqli_error($conn);
         }
-    } 
-}
-
-?>
+    }
+    ?>
 
 

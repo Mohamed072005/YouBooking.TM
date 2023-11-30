@@ -57,7 +57,6 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                                 </div>
 
                             </div>
-                           
                         </div>
                     </div>
                 </div>
@@ -75,7 +74,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                     <tbody>
                         <?php 
                         $id=$_SESSION['user_id'];
-                        $sql = "SELECT * FROM hotel NATURAL JOIN localisation where hotel.user_id = $id";
+                        $sql = "SELECT * FROM hotel JOIN localisation ON localisation.location_id = hotel.location_id WHERE id_user = '$id'";
                         $result = mysqli_query($conn, $sql);   
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -85,7 +84,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                                 <p class=""><?=$row['name']?></p>
                             </td>
                             <td>
-                                <span class=""><?=$row['pays']?> <?=$row['ville']?></span>
+                                <span class=""><?=$row['pays']?><?php echo ',' ?><?=$row['ville']?></span>
                             </td>
                             <td>
                                 <span class=""> <?=$row['contact_number']?></span>
