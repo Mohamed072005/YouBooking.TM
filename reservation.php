@@ -16,20 +16,14 @@
             </thead>
             <tbody>
             <?php
-        $sql = "SELECT
-        room_details.room_number,
-        reservation.start_date,
-        reservation.end_date,
-        reservation.total_cost,
-        typeroom.room_type,
-        invoice.status
-    FROM
-    reservation
-    JOIN room_details on reservation.room_detail_id=room_details.room_detail_id
-    JOIN room ON room_details.room_id = room.room_id 
-    JOIN typeroom on room.roomtype_id=typeroom.roomtype_id
-    JOIN invoice ON reservation.reservation_id = invoice.reservation_id
-    where user_id;";
+        $id=$_SESSION['user_id'];
+        $sql = "SELECT * FROM
+        reservation
+        JOIN room_details on reservation.room_detail_id=room_details.room_detail_id
+        JOIN room ON room_details.room_id = room.room_id 
+        JOIN typeroom on room.roomtype_id=typeroom.roomtype_id
+        JOIN invoice ON reservation.reservation_id = invoice.reservation_id
+        where user_id='$id'";
 
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
@@ -39,19 +33,19 @@
                 $end_date= $row['end_date'];
                     $price= $row['total_cost'];
                     $type= $row['room_type'];
-                    $status= $row['status'];
-                    echo' <tr>
-                    <th scope="row">'.$room_number.'</th>
-                    <td>'.$start_date.'</td>
-                    <td>'.$end_date.'</td>
-                    <td>'.$price.'</td>
-                    <td>'.$type.'</td>
-                    <td>'.$status.'</td>
+                    $status= $row['status']; ?>
+                     <tr>
+                    <th scope="row"><?=$room_number?></th>
+                    <td><?=$start_date?></td>
+                    <td><?=$end_date?></td>
+                    <td><?=$price?></td>
+                    <td><?=$type?></td>
+                    <td><?=$status?></td>
                     <td>
-                    <button id="delete"><a href="#">Annuler</a></button>
+                    <button id="delete"><a href="reservation_delete.php?deleteid=<?=$row['reservation_id']?>&idinoice=<?=$row['invoice_id']?>">Annuler</a></button>
                     </td>
-                </tr>';
-        }
+                </tr>;
+       <?php }
         } else {
         echo "0 results";
         }
