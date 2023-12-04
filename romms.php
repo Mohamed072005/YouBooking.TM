@@ -46,7 +46,7 @@
                 $hotel_Name=$_POST['hotel_name'];
                 $city=$_POST['hotel_city'];
         
-                $sql="SELECT room_details.room_number, typeroom.room_type, room.price, room.amenities, hotel.name
+                $sql="SELECT room_details.room_detail_id, room_details.room_number, typeroom.room_type, room.price, room.amenities, hotel.name
                 FROM room_details
                 INNER JOIN room ON room_details.room_id = room.room_id
                 INNER JOIN hotel ON room.hotel_id = hotel.hotel_id
@@ -65,13 +65,13 @@
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['room_number']?></h5>
                                 <p class="card-text"><?=$row['room_type']?></p>
-                                <a href="#" class="btn btn-primary">Book Now</a>
+                                <a href="romm-detail.php?room_id=<?=$row['room_detail_id']?>" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
                     </div>
                     <?php }  } else{ ?>
                   
-                   <?php    $sql="SELECT room_details.room_number, typeroom.room_type, room.price, room.amenities, hotel.name
+                   <?php    $sql="SELECT room_details.room_detail_id, room_details.room_number, typeroom.room_type, room.price, room.amenities, hotel.name
                 FROM room_details
                 INNER JOIN room ON room_details.room_id = room.room_id
                 INNER JOIN hotel ON room.hotel_id = hotel.hotel_id
@@ -89,7 +89,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['room_number']?></h5>
                                 <p class="card-text"><?=$row['room_type']?></p>
-                                <a href="#" class="btn btn-primary">Book Now</a>
+                                <a href="romm-detail.php?room_id=<?=$row['room_detail_id']?>" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
                     </div>
