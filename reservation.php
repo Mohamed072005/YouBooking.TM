@@ -6,43 +6,60 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Reservation ID</th>
-                    <th scope="col">Details</th>
-                    <th scope="col">Payment Status</th>
+                    <th scope="col">Room number</th>
+                    <th scope="col">Reservation start date</th>
+                    <th scope="col">Reservation end date</th>
+                    <th scope="col">price</th>
+                    <th scope="col">type</th>
+                    <th scope="col">status</th>
                 </tr>
             </thead>
             <tbody>
-               
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Reservation #1</td>
-                    <td>Details about the reservation...</td>
-                    
-                    <td><span class="badge bg-success">Paid</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Reservation #1</td>
-                    <td>Details about the reservation...</td>
-                    
-                    <td><span class="badge bg-warning">UnPaid</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Reservation #1</td>
-                    <td>Details about the reservation...</td>
-                    
-                    <td><span class="badge bg-success">Paid</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Reservation #1</td>
-                    <td>Details about the reservation...</td>
-                    
-                    <td><span class="badge bg-success">Paid</span></td>
-                </tr>
-              
+            <?php
+        $sql = "SELECT
+        room_details.room_number,
+        reservation.start_date,
+        reservation.end_date,
+        reservation.total_cost,
+        typeroom.room_type,
+        invoice.status
+    FROM
+    reservation
+    JOIN room_details on reservation.room_detail_id=room_details.room_detail_id
+    JOIN room ON room_details.room_id = room.room_id 
+    JOIN typeroom on room.roomtype_id=typeroom.roomtype_id
+    JOIN invoice ON reservation.reservation_id = invoice.reservation_id
+    where user_id;";
+
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+                $room_number=$row['room_number'];
+                $start_date=$row['start_date'];
+                $end_date= $row['end_date'];
+                    $price= $row['total_cost'];
+                    $type= $row['room_type'];
+                    $status= $row['status'];
+                    echo' <tr>
+                    <th scope="row">'.$room_number.'</th>
+                    <td>'.$start_date.'</td>
+                    <td>'.$end_date.'</td>
+                    <td>'.$price.'</td>
+                    <td>'.$type.'</td>
+                    <td>'.$status.'</td>
+                    <td>
+                    <button id="delete"><a href="#">Annuler</a></button>
+                    </td>
+                </tr>';
+        }
+        } else {
+        echo "0 results";
+        }
+
+        mysqli_close($conn);
+
+
+?>
             </tbody>
         </table>
     </section>
