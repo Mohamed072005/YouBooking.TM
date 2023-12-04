@@ -12,11 +12,8 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
         <main class="col-md-10 p-3 main-content">
 
             <section class="section dashboard">
-              
-                <a type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">add
-                    hotel</a>
 
-             
+                <a type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">add room</a>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -57,7 +54,6 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
                                 </div>
 
                             </div>
-                           
                         </div>
                     </div>
                 </div>
@@ -96,7 +92,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
                             <td>
 
                                 <a type="button" class="btn btn-danger">Supreme</a>
-                               
+                                
                                 <a type="button" class="btn btn-warning">update</a>
 
                               

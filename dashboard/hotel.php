@@ -93,19 +93,14 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                                 <span class=""> <?=$row['amenities']?></span>
                             </td>
                             <td>
-
                                 <a href="../logique/deletehotel.php?id=<?= $row['hotel_id']?> & id_location=<?= $row['location_id']?>" type="button" class="btn btn-danger">Supreme</a>
-                               
-                                <a type="button" class="btn btn-warning" >update</a>
-
+                                <a href="../logique/updatehotel.php?id=<?= $row['hotel_id']?> & id_location=<?= $row['location_id']?>" type="button" class="btn btn-warning">update</a>
                             </td>
-                            
                         </tr> 
-                      
                         
                         <?php }}?>
                         </tbody>
-                      <?php  if($_SESSION['role_id']==1){ ?>
+                        <?php  if($_SESSION['role_id']==1){ ?>
                         <tbody>
                         <?php 
                         $id=$_SESSION['user_id'];
@@ -130,11 +125,10 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                             <td>
 
                                 <a type="button" class="btn btn-danger">Supreme</a>
-                              
                             </td>
                         </tr> <?php }}?>
 
-                      <?php  }?>
+                        <?php  }?>
 
                     </tbody>
                     
