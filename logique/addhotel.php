@@ -13,7 +13,7 @@
         $sql = mysqli_query($conn, $insert);
         if($sql){
             $locationId = mysqli_insert_id($conn);
-            $sqlHotel = mysqli_query($conn, "INSERT INTO hotel (`location_id`, `name`, `contact_number`, `amenities`, `id_user`)
+            $sqlHotel = mysqli_query($conn, "INSERT INTO hotel (`location_id`, `name`, `contact_number`, `amenities`, `user_id`)
             VALUES ('$locationId', '$hotelname', '$contactNumber', '$amenities', '$userId')");
 
             if ($sqlHotel) {

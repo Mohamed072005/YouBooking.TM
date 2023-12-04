@@ -23,7 +23,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Hotel</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -74,8 +74,9 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                     <tbody>
                         <?php 
                         $id=$_SESSION['user_id'];
-                        $sql = "SELECT * FROM hotel JOIN localisation ON localisation.location_id = hotel.location_id WHERE id_user = '$id'";
-                        $result = mysqli_query($conn, $sql);   
+                        $sql = "SELECT * FROM hotel JOIN localisation ON localisation.location_id = hotel.location_id WHERE user_id = '$id'";
+                        $result = mysqli_query($conn, $sql); 
+                        if(!$result){ echo 'test';}  
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
@@ -127,7 +128,6 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_i
                                 <a type="button" class="btn btn-danger">Supreme</a>
                             </td>
                         </tr> <?php }}?>
-
                         <?php  }?>
 
                     </tbody>

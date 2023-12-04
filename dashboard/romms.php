@@ -20,36 +20,51 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Room</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="modal-body">
-                                    <form action="../logique/addhotel.php" method="post" >
+                                    <form action="../logique/addroom.php" method="post">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Name:</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
+                                            <label for="roomNumber" class="form-label">Room Number:</label>
+                                            <input type="text" class="form-control" id="roomNumber" name="roomNumber" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="contactNumber" class="form-label">Contact Number:</label>
-                                            <input type="tel" class="form-control" id="contactNumber"
-                                                name="contactNumber" required>
+                                            <label for="roomNumber" class="form-label">price :</label>
+                                            <input type="text" class="form-control" id="roomNumber" name="roomPrice" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="amenities" class="form-label">Amenities:</label>
-                                            <input type="text" class="form-control" id="amenities" name="amenities"
-                                                required>
+                                            <label for="roomNumber" class="form-label">amenties :</label>
+                                            <input type="text" class="form-control" id="roomNumber" name="amenities" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="pays" class="form-label">Pays:</label>
-                                            <input type="text" class="form-control" id="pays" name="pays" required>
+                                            <label for="roomType" class="form-label">Room Type:</label>
+                                            <select class="form-select" id="roomType" name="roomType" required>
+                                            <?php
+                                                $id=$_SESSION['user_id'];
+                                                $typeSql = "SELECT * FROM typeroom " ;
+                                                $res = mysqli_query($conn, $typeSql);
+                                                while ($row = mysqli_fetch_assoc($res)) {
+                                                    echo "<option value='{$row['roomtype_id']}'>{$row['room_type']}</option>";
+                                                } ?>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="ville" class="form-label">Ville:</label>
-                                            <input type="text" class="form-control" id="ville" name="ville" required>
+                                            <label for="hotelId" class="form-label">Select Hotel:</label>
+                                            <select class="form-select" id="hotelId" name="hotelName" required>
+                                                <?php
+                                                $id=$_SESSION['user_id'];
+                                                $hotelSql = "SELECT hotel_id, name FROM hotel where user_id = $id" ;
+                                                $res = mysqli_query($conn, $hotelSql);
+                                                while ($row = mysqli_fetch_assoc($res)) {
+                                                    echo "<option value='{$row['hotel_id']}'>{$row['name']}</option>";
+                                                } ?>
+                                            </select>
                                         </div>
-                                        <button type="submit" name="inserthotel" class="btn btn-primary">add hotel</button>
+    
+                                        <button type="submit" name="insertroom" class="btn btn-primary">Add Room</button>
                                     </form>
                                 </div>
 
@@ -61,33 +76,40 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
 
                     <thead class="bg-light">
                         <tr>
-                            <th>name</th>
-                            <th>location</th>
-                            <th>phone</th>
-                            <th>amenties</th>
+                            <th>Room Number</th>
+                            <th>Hotel Name</th>
+                            <th>Amenities</th>
+                            <th>Room Type</th>
+                            <th>Price</th>
                             <th>action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         $id=$_SESSION['user_id'];
-                        $sql = "SELECT * FROM hotel NATURAL JOIN localisation where hotel.user_id = $id";
+                        $sql = "SELECT * , room.amenities FROM room 
+                        INNER JOIN hotel ON room.hotel_id = hotel.hotel_id 
+                        INNER JOIN typeroom ON room.roomtype_id = typeroom.roomtype_id 
+                        INNER JOIN room_details ON room.room_id = room_details.room_id WHERE hotel.user_id = $id";
                         $result = mysqli_query($conn, $sql);   
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
 
                             <td>
-                                <p class=""><?=$row['name']?></p>
+                                <p class=""><?=$row['room_number']?></p>
                             </td>
                             <td>
-                                <span class=""><?=$row['pays']?> <?=$row['ville']?></span>
-                            </td>
-                            <td>
-                                <span class=""> <?=$row['contact_number']?></span>
+                                <span class=""><?=$row['name']?></span>
                             </td>
                             <td>
                                 <span class=""> <?=$row['amenities']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['room_type']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['price']?></span>
                             </td>
                             <td>
 
@@ -97,7 +119,13 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
 
                               
                             </td>
-                        </tr> <?php }}?>
+                        </tr> 
+                        <?php 
+                                }
+                            } else { ?>
+                                <p class="h5 text-warning">No result</p>
+                            <?php } 
+                        ?>
                     </tbody>
                 </table>
 
