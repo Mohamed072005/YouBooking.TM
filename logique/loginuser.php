@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 include '../cnxDB.php';
 
@@ -18,6 +18,7 @@ if (isset($_POST['login'])) {
             $_SESSION['name'] = $row['name'];
             $_SESSION['email'] = $row['email'];
             $_SESSION['phone'] = $row['phone_number'];
+           
             if ($_SESSION['role_id'] == 3) {
                 header('location:../index.php');
             } else if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 4){

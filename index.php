@@ -1,7 +1,5 @@
-<?php  include 'header.php';
- if ($_SESSION['role_id'] != 3) {
-    header('location:login.php');
-}
+<?php  
+include 'header.php'; 
 ?>
 
 <section>

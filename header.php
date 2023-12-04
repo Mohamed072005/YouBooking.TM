@@ -1,3 +1,8 @@
+<?php 
+
+@include 'cnxDB.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,14 +56,14 @@ padding: 20px;
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                     </ul>
-                  
+                   
+                       
                     <div class="d-flex gap-3">
-                    <div class="navbar-nav ml-auto">
-                        <button class="btn btn-dark" type="button">Login</button>
-                    </div>
-                    <div class="dropdown">
+                    <?php
+                    if (isset($_SESSION['role_id']) ) {?>
+                            <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                User
+                            <?php echo $_SESSION['name'] ?>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -67,6 +72,18 @@ padding: 20px;
                                 <li><a class="dropdown-item" href="logique/logout.php">Logout</a></li>
                             </ul>
                         </div>
+
+
+
+                 
+                   <?php }else {?>
+                    <div class="navbar-nav ml-auto">
+                   
+                   <button class="btn btn-dark" type="button"><a href="login.php">Login</a></button>
+               </div> 
+                   
+               <?php } ?>
+                        
                     </div>
                 </div>
             </div>
