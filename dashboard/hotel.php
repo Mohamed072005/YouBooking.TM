@@ -1,19 +1,7 @@
-<?php
+<?php  
 include 'header.php';
-
-$sqlhot = "SELECT COUNT(*) AS hotelCount FROM hotel";
-$hotelResult = mysqli_query($conn, $sqlhot);
-$hotelData = 0;
-if ($hotelResult && $row = mysqli_fetch_assoc($hotelResult)) {
-    $hotelData = $row['hotelCount'];
-}
-
-
-$sqlrom = "SELECT COUNT(*) AS roomCount FROM room_details";
-$roomResult = mysqli_query($conn, $sqlrom);
-$roomData = 0;
-if ($roomResult && $row = mysqli_fetch_assoc($roomResult)) {
-    $roomData = $row['roomCount'];
+if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1 && $_SESSION['role_id']!=2){
+  header('location:../login.php');
 }
 ?>
 
@@ -22,86 +10,141 @@ if ($roomResult && $row = mysqli_fetch_assoc($roomResult)) {
         <?php include 'aside.php' ?>
 
         <main class="col-md-10 p-3 main-content">
-          
-            <div class="row d-flex mb-3">
-                <div class="col-md-2">
-                    <div class="card mb-3  ">
-                        <div class="card-body">
-                            <h5 class="card-title">Hotel </h5>
-                            <p class="card-text">Total number of hotels: <?php echo $hotelData; ?></p>
+
+            <section class="section dashboard">
+                <?php if($_SESSION['role_id']==2){ ?>
+                <a type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">add
+                    hotel</a>
+
+                <?php } ?>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-body">
+                                    <form action="../logique/addhotel.php" method="post" >
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name:</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contactNumber" class="form-label">Contact Number:</label>
+                                            <input type="tel" class="form-control" id="contactNumber"
+                                                name="contactNumber" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="amenities" class="form-label">Amenities:</label>
+                                            <input type="text" class="form-control" id="amenities" name="amenities"
+                                                required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="pays" class="form-label">Pays:</label>
+                                            <input type="text" class="form-control" id="pays" name="pays" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ville" class="form-label">Ville:</label>
+                                            <input type="text" class="form-control" id="ville" name="ville" required>
+                                        </div>
+                                        <button type="submit" name="inserthotel" class="btn btn-primary">add hotel</button>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+                <table class="table align-middle mb-0 bg-white shadow ">
 
-                <div class="col-md-2">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Room </h5>
-                            <p class="card-text">Total number of rooms: <?php echo $roomData; ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-md-5"><canvas id="hotelChart" width="1000" height="400"></canvas></div>
-                <div class="col-md-5"><canvas id="roomChart" width="1000" height="400"></canvas></div>
-            </div>
-          
+                    <thead class="bg-light">
+                        <tr>
+                            <th>name</th>
+                            <th>location</th>
+                            <th>phone</th>
+                            <th>amenties</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $id=$_SESSION['user_id'];
+                        $sql = "SELECT * FROM hotel JOIN localisation ON localisation.location_id = hotel.location_id WHERE id_user = '$id'";
+                        $result = mysqli_query($conn, $sql);   
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
 
-            
+                            <td>
+                                <p class=""><?=$row['name']?></p>
+                            </td>
+                            <td>
+                                <span class=""><?=$row['pays']?><?php echo ',' ?><?=$row['ville']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['contact_number']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['amenities']?></span>
+                            </td>
+                            <td>
+
+                                <a type="button" class="btn btn-danger">Supreme</a>
+                               
+                                <a type="button" class="btn btn-warning" >update</a>
+
+                            </td>
+                            
+                        </tr> 
+                      
+                        
+                        <?php }}?>
+                        </tbody>
+                      <?php  if($_SESSION['role_id']==1){ ?>
+                        <tbody>
+                        <?php 
+                        $id=$_SESSION['user_id'];
+                        $sql = "SELECT * FROM hotel NATURAL JOIN localisation ";
+                        $result = mysqli_query($conn, $sql);   
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+
+                            <td>
+                                <p class=""><?=$row['name']?></p>
+                            </td>
+                            <td>
+                                <span class=""><?=$row['pays']?> <?=$row['ville']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['contact_number']?></span>
+                            </td>
+                            <td>
+                                <span class=""> <?=$row['amenities']?></span>
+                            </td>
+                            <td>
+
+                                <a type="button" class="btn btn-danger">Supreme</a>
+                              
+                            </td>
+                        </tr> <?php }}?>
+
+                      <?php  }?>
+
+                    </tbody>
+                    
+                </table>
+
+            </section>
         </main>
     </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const hotelData = <?php echo $hotelData; ?>;
-    const roomData = <?php echo $roomData; ?>;
 
-    const hotelCanvas = document.getElementById('hotelChart').getContext('2d');
-    const hotelChart = new Chart(hotelCanvas, {
-        type: 'bar',
-        data: {
-            labels: ['Hotels'],
-            datasets: [{
-                label: 'Number of Hotels',
-                data: [hotelData],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    const roomCanvas = document.getElementById('roomChart').getContext('2d');
-    const roomChart = new Chart(roomCanvas, {
-        type: 'bar',
-        data: {
-            labels: ['Rooms'],
-            datasets: [{
-                label: 'Number of Rooms',
-                data: [roomData],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-});
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
