@@ -1,1 +1,2 @@
-<?php   session_start();   $conn = mysqli_connect('localhost', 'root', '', 'youbooking');    ?>
+<?php   session_start();   
+$conn = mysqli_connect('localhost', 'root', '', 'youbooking');    ?>
