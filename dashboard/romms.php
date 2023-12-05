@@ -113,11 +113,9 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=2){
                             </td>
                             <td>
 
-                                <a type="button" class="btn btn-danger">Supreme</a>
+                                <a type="button" href="../logique/deleteroom.php?id=<?= $row['room_id'] ?>" class="btn btn-danger">Delete</a>
                                 
-                                <a type="button" class="btn btn-warning">update</a>
-
-                              
+                                <a type="button" href="../logique/updateroom.php?id=<?= $row['room_id'] ?> & id_room_details=<?= $row['room_detail_id'] ?>" class="btn btn-warning">update</a>
                             </td>
                         </tr> 
                         <?php 

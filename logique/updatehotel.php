@@ -47,7 +47,7 @@ include "../dashboard/header.php";
         
     </main>
     
-
+</body>
 </html>
 
 
