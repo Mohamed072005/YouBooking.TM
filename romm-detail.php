@@ -14,9 +14,8 @@ if (isset($_POST['checkAv'])) {
         exit;
     }
 
-    $sql = "SELECT * FROM reservation 
-                           WHERE room_detail_id = $room_id
-                           AND (('$startdate' BETWEEN start_date AND end_date) OR ('$enddate' BETWEEN start_date AND end_date))";
+    $sql = "SELECT * FROM reservation  WHERE room_detail_id = $room_id
+    AND (('$startdate' BETWEEN start_date AND end_date) OR ('$enddate' BETWEEN start_date AND end_date))";
 
     $res = mysqli_query($conn, $sql);
 
@@ -86,13 +85,15 @@ if (isset($_POST['book'])) {
     $start = new DateTime($start_date);
     $end = new DateTime($end_date);
     $interval = $start->diff($end);
-    $totaljour = $interval->format('%a');
+
+
+    
+    $totaljour = $interval;
     $total_prix = $prix * $totaljour;
 
 
-    $sql1 = "SELECT * FROM reservation 
-                       WHERE room_detail_id IN (SELECT room_detail_id FROM room_details WHERE room_detail_id = $room_id) 
-                       AND (('$start_date' BETWEEN start_date AND end_date) OR ('$end_date' BETWEEN start_date AND end_date))";
+    $sql1 = "SELECT * FROM reservation  WHERE room_detail_id = $room_id
+    AND (('$start_date' BETWEEN start_date AND end_date) OR ('$end_date' BETWEEN start_date AND end_date))";
 
     $res1 = mysqli_query($conn, $sql1);
 

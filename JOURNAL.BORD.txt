@@ -1,0 +1,56 @@
+Jour 1:
+_______
+
+Oumaima : Documentation
+Lhouat : Documentation
+Boushaba : Créer le code de signin/signup
+
+******************************************************************************************************************************************
+Jour 2:
+_______
+
+Oumaima : Débuté le code frontend page home
+Lhouat : Débuté le code frontend dashboard
+Boushaba : Débuté le code frontend page room
+
+******************************************************************************************************************************************
+Jour 3:
+_______
+
+Oumaima : Terminer le code frontend page home
+Lhouat : Terminer le code frontend dashboard
+Boushaba : Terminer le code frontend page room
+
+******************************************************************************************************************************************
+Jour 4:
+_______
+
+Oumaima : Débuté le code backend pour afficher les réservations et gérer le statut de l'utilisateur (connecté ou non)
+Lhouat : Débuté le code backend pour ajouter un hôtel avec sa localisation
+Boushaba : Débuté le code frontend page détail d'une chambre et le backend des tâches de l'administrateur
+
+******************************************************************************************************************************************
+Jour 5:
+_______
+
+Oumaima : Débuté le code backend pour filtrer par ville et nom d'hôtel
+Lhouat : Terminer le code backend pour ajouter un hôtel avec sa localisation (incluant les opérations de suppression et de mise à jour)
+Boushaba : Terminer le code backend pour accepter et refuser les demandes des clients pour devenir propriétaire
+
+******************************************************************************************************************************************
+Jour 6:
+_______
+
+Oumaima : Terminer le code backend pour filtrer par ville et nom d'hôtel
+Lhouat : Débuté le code pour ajouter une chambre à un hôtel
+Boushaba : Débuté le code backend pour afficher tous les hôtels, tous les utilisateurs, et les statistiques des graphiques
+
+******************************************************************************************************************************************
+Jour 7:
+_______
+
+Oumaima : Fixer les problèmes
+Lhouat : Terminer et fixer des problèmes
+Boushaba : Fixer des problèmes
+
+******************************************************************************************************************************************
