@@ -93,7 +93,7 @@ if (isset($_POST['book'])) {
 
 
     $sql1 = "SELECT * FROM reservation  WHERE room_detail_id = $room_id
-    AND (('$start_date' BETWEEN start_date AND end_date) OR ('$end_date' BETWEEN start_date AND end_date))";
+    AND (('$startdate' BETWEEN start_date AND end_date) OR ('$enddate' BETWEEN start_date AND end_date))";
 
     $res1 = mysqli_query($conn, $sql1);
 
