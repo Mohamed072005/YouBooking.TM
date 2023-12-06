@@ -15,7 +15,7 @@ if (isset($_POST['checkAv'])) {
     }
 
     $sql = "SELECT * FROM reservation 
-                           WHERE room_detail_id IN (SELECT room_detail_id FROM room_details WHERE room_detail_id = $room_id) 
+                           WHERE room_detail_id = $room_id
                            AND (('$startdate' BETWEEN start_date AND end_date) OR ('$enddate' BETWEEN start_date AND end_date))";
 
     $res = mysqli_query($conn, $sql);
